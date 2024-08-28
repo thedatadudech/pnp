@@ -6,6 +6,7 @@ import { env } from "../env.mjs";
 
 const SEO = dynamic(() => import("~/components/seo"));
 const RecentApps = dynamic(() => import("~/components/apps/recent_apps"));
+const RecentTechs = dynamic(() => import("~/components/techs/recent_techs"));
 const RecentProjects = dynamic(
   () => import("~/components/projects/recent_projects"),
 );
@@ -32,7 +33,6 @@ const Home = (props: HomeProps) => {
   return (
     <>
       <SEO
-        description={`${props.meSection.techs.techs.join(", ")}`}
         imgUrl={
           props.recentApps.data[0] ? props.recentApps.data[0].imgUrl : undefined
         }
@@ -44,6 +44,9 @@ const Home = (props: HomeProps) => {
           company={props.workFor}
           testis={props.testis}
         />
+        {props.recentTechs.data.length > 0 && (
+          <RecentTechs {...props.recentTechs} />
+        )}
         {props.recentApps.data.length > 0 && (
           <RecentApps {...props.recentApps} />
         )}

@@ -10,7 +10,7 @@ import { env } from "../../env.mjs";
 const SEO = dynamic(() => import("~/components/seo"));
 
 const ProjectBlogLayout = dynamic(
-  () => import("~/components/projects/project_blog_layout")
+  () => import("~/components/projects/project_blog_layout"),
 );
 const LinkWrapper = dynamic(() => import("~/components/link_wrapper"));
 
@@ -40,13 +40,13 @@ export default function AllDataShowPage(props: AllDataProps) {
   useEffect(() => {
     setLeftDisable(props.pageInfo.no <= 1);
     setRightDisable(
-      props.pageInfo.size * props.pageInfo.no >= props.pageInfo.total
+      props.pageInfo.size * props.pageInfo.no >= props.pageInfo.total,
     );
   }, [props]);
 
   return (
     <>
-      <SEO description={`See all ${title}`} title={title} />
+      <SEO title={title} />
       <div className="container mx-auto">
         <p className="text-center text-3xl uppercase">{pageName}</p>
         <div className="mx-auto w-full max-w-6xl">

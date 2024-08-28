@@ -5,10 +5,7 @@ const SEO = dynamic(() => import("~/components/seo"));
 export default function Custom404() {
   return (
     <>
-      <SEO
-        description={`404 | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-        title={`404 | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-      />
+      <SEO title={`404 | ${env.NEXT_PUBLIC_PERSON_NAME}`} />
 
       <main className="errorSplash container mx-auto">
         <div>

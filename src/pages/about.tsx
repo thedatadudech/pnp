@@ -22,10 +22,7 @@ export default function About() {
 
   return (
     <>
-      <SEO
-        description={`About | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-        title={`About | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-      />
+      <SEO title={`About | ${env.NEXT_PUBLIC_PERSON_NAME}`} />
       <Spotlight />
       <div className="container mx-auto">
         <SAPage

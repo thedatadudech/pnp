@@ -29,6 +29,11 @@ export default function Links(props: ILinksProps) {
           Resume
         </Link>
       </span>
+      <span className="tooltip tooltip-bottom" data-tip="View">
+        <Link href="/techs" className="link-hover link">
+          Techs
+        </Link>
+      </span>
     </div>
   );
 }

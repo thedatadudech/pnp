@@ -7,6 +7,7 @@ import type {
   CardData,
   Company,
   Project,
+  Techs,
 } from "./interfaces";
 import { getPlaiceholder } from "plaiceholder";
 import { parse } from "path";
@@ -19,6 +20,7 @@ export interface DBConfigs {
   blogTotal: number;
   appTotal: number;
   companyTotal: number;
+  techsTotal: number;
 }
 
 export interface RawProjectsProps {
@@ -27,6 +29,9 @@ export interface RawProjectsProps {
 
 export interface RawAppsProps {
   apps: App[];
+}
+export interface RawTechsProps {
+  techs: Techs[];
 }
 
 export interface RawBlogsProps {
@@ -64,6 +69,14 @@ export async function getApps(): Promise<RawAppsProps> {
     return { apps: [] };
   }
 }
+export async function getTechs(): Promise<RawTechsProps> {
+  try {
+    const dataTechs = (await getData("db/techs.json")).toString();
+    return JSON.parse(dataTechs) as RawTechsProps;
+  } catch (e) {
+    return { techs: [] };
+  }
+}
 
 export async function getBlogs(): Promise<RawBlogsProps> {
   try {
@@ -99,7 +112,7 @@ export function parseProject(md_text: string, fileName: string) {
   const company_logo = md_text.split("companyLogo: ")[1]?.split("\n")[0] ?? "";
   const date = parseInt(md_text.split("date: ")[1]?.split("\n")[0] ?? "0");
   const read_time = parseInt(
-    md_text.split("readTime: ")[1]?.split("\n")[0] ?? "0"
+    md_text.split("readTime: ")[1]?.split("\n")[0] ?? "0",
   );
   const img_url = md_text.split("imgUrl: ")[1]?.split("\n")[0] ?? "";
   const what_text = md_text.split("whatText: ")[1]?.split("\n")[0] ?? "";
@@ -134,7 +147,7 @@ export function getProject(
     | {
         [key: string]: string;
       },
-  fileName: string
+  fileName: string,
 ): Project {
   return {
     imgUrl: data.imgUrl,
@@ -166,7 +179,7 @@ export function getBlog(
     | {
         [key: string]: string | number;
       },
-  fileName: string
+  fileName: string,
 ): Blog {
   return {
     title: data.title as string,
@@ -183,7 +196,7 @@ export function parseBlog(md_text: string, filename: string): Blog {
   const desc = md_text.split("desc: ")[1]?.split("\n")[0] ?? "";
   const date = parseInt(md_text.split("date: ")[1]?.split("\n")[0] ?? "0");
   const read_time = parseInt(
-    md_text.split("readTime: ")[1]?.split("\n")[0] ?? "0"
+    md_text.split("readTime: ")[1]?.split("\n")[0] ?? "0",
   );
   const img_url = md_text.split("imgUrl: ")[1]?.split("\n")[0] ?? "";
 
@@ -215,6 +228,10 @@ export async function getCard(type: Card) {
     case "company":
       const company = (await getCompany()).company;
       allData = await addBlur(company, company.length);
+      break;
+    case "techs":
+      const techs = (await getTechs()).techs;
+      allData = await addBlur(techs, techs.length);
       break;
   }
   return allData;
@@ -252,7 +269,7 @@ export async function addBlur<T>(data: T[], limit = 3) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const imgBlurDataRaw = await getBlurData(
       (element as unknown as { imgUrl: string }).imgUrl,
-      false
+      false,
     );
 
     let imgBlurData = null;

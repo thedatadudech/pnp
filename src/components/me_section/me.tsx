@@ -30,6 +30,7 @@ export default function Me(props: MeProps) {
       </div>
       <div>
         <span className="font-bold">{props.hText}</span>
+        <br />
         <span> {props.text}</span>
       </div>
     </div>

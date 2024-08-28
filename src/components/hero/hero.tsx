@@ -4,7 +4,7 @@ import { type TestimonialsProps } from "../work_for_t/testimonials";
 import { type WorkForProps } from "~/app_function/utils/interfaces";
 
 const WorkFor = dynamic(() => import("../company/work_for"));
-const Testimonials = dynamic(() => import("../work_for_t/testimonials"));
+// const Testimonials = dynamic(() => import("../work_for_t/testimonials"));
 const MeSection = dynamic(() => import("../me_section/me_section"));
 
 export interface HeroProps {
@@ -21,7 +21,7 @@ export default function Hero(props: HeroProps) {
       </div>
       <div className="flex w-full flex-1 flex-col xl:space-y-2">
         <WorkFor {...props.company} />
-        <Testimonials {...props.testis} />
+        {/* <Testimonials {...props.testis} /> */}
       </div>
     </div>
   );

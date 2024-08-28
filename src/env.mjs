@@ -28,11 +28,11 @@ export const env = createEnv({
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: z.string(),
     NEXT_PUBLIC_GOOGLE_MAP_LAT: z
       .string()
-      .transform((s) => parseInt(s, 10))
+      .transform((s) => parseFloat(s))
       .pipe(z.number()),
     NEXT_PUBLIC_GOOGLE_MAP_LNG: z
       .string()
-      .transform((s) => parseInt(s, 10))
+      .transform((s) => parseFloat(s))
       .pipe(z.number()),
     NEXT_PUBLIC_GOOGLE_MAP_LOCATION_NAME: z.string(),
     NEXT_PUBLIC_REPO_ID: z.string(),
@@ -104,7 +104,7 @@ export const env = createEnv({
     NEXT_PUBLIC_LOCALHOST_TEST: process.env.NEXT_PUBLIC_LOCALHOST_TEST,
     NEXT_PUBLIC_BUYMEACOFFEE_MESSAGE:
       process.env.NEXT_PUBLIC_BUYMEACOFFEE_MESSAGE,
-      NEXT_PUBLIC_CRISP_WEBSITE_ID: process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID,
+    NEXT_PUBLIC_CRISP_WEBSITE_ID: process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.

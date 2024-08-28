@@ -18,10 +18,7 @@ export default function Resume() {
   );
   return (
     <>
-      <SEO
-        description={`Resume | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-        title={`Resume | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-      />
+      <SEO title={`Resume | ${env.NEXT_PUBLIC_PERSON_NAME}`} />
       <Spotlight />
       <div className="my-5 flex justify-center">
         <Link

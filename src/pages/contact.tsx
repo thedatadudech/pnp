@@ -9,10 +9,7 @@ const MapOn = dynamic(() => import("~/components/contact/map_on"));
 export default function Contact() {
   return (
     <>
-      <SEO
-        description={`Contact | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-        title={`Contact | ${env.NEXT_PUBLIC_PERSON_NAME}`}
-      />
+      <SEO title={`Contact | ${env.NEXT_PUBLIC_PERSON_NAME}`} />
       <Spotlight />
       <ContactSection />
       <MapOn />

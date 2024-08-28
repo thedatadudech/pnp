@@ -13,6 +13,7 @@ interface ViewMore {
 export default function ViewMore(props: ViewMore) {
   const counts =
     props.counts && props.counts > 0 ? showCountHuman(props.counts) : undefined;
+
   return (
     <div className="indicator mt-3">
       {counts && props.name && (

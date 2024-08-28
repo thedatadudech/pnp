@@ -8,9 +8,9 @@ import {
   getData,
   getProjects,
   getTesti,
+  getTechs,
   getBlurData,
 } from "../utils/utils-server";
-import { type RXTProps } from "~/components/me_section/r_x_t";
 import { type MeSectionProps } from "~/components/me_section/me_section";
 import { type TestimonialsProps } from "~/components/work_for_t/testimonials";
 import { type ProjectsProps } from "~/components/projects/recent_projects";
@@ -20,9 +20,11 @@ import {
   type App,
   type Blog,
   type Project,
+  type Techs,
   type WorkForProps,
 } from "../utils/interfaces";
 import { type AppsProps } from "~/components/apps/recent_apps";
+import { type TechsProps } from "~/components/techs/recent_techs";
 import { getDataUrl } from "../utils/utils";
 import { env } from "../../env.mjs";
 import { type Testimonial } from "~/components/work_for_t/testi_card";
@@ -41,6 +43,7 @@ export interface HomeProps {
   workFor: WorkForProps;
   testis: TestimonialsProps;
   recentApps: AppsProps;
+  recentTechs: TechsProps;
   recentProjects: ProjectsProps;
   recentBlogs: RecentBlogsProps;
 }
@@ -51,12 +54,14 @@ export async function HomeServer() {
   const dataBio = (await getData("home/bio.json")).toString();
   const me = JSON.parse(dataBio) as MeProps;
 
-  const dataExpertise = (await getData("home/expertise.json")).toString();
-  const techs = JSON.parse(dataExpertise) as RXTProps;
+  // const dataExpertise = (await getData("home/expertise.json")).toString();
+  // const techs = JSON.parse(dataExpertise) as RXTProps;
 
   const testis = await getTesti();
 
   const allProsRaw = await getProjects();
+
+  const allTechsRaw = await getTechs();
 
   const allAppsRaw = await getApps();
 
@@ -67,14 +72,15 @@ export async function HomeServer() {
   const RPros: Project[] = await addBlur(allProsRaw.projects);
   const RApps: App[] = await addBlur(allAppsRaw.apps, 6);
   const RBlogs: Blog[] = await addBlur(allBlogsRaw.blogs);
+  const RTechs: Techs[] = await addBlur(allTechsRaw.techs);
   const RCompany: Company[] = await addBlur(allCompanyRaw.company);
   const RTestis: Testimonial[] = await addBlur(
     testis.testis,
-    testis.testis.length
+    testis.testis.length,
   );
 
   const testimonialAddUrl =
-    getDataUrl(env.NEXT_PUBLIC_REPO_PATH) + "/home/testimonials.json";
+    getDataUrl(env.NEXT_PUBLIC_REPO_PATH) + "home/testimonials.json";
 
   const blurUrlItem = await getBlurData(me.imgUrl);
 
@@ -84,13 +90,16 @@ export async function HomeServer() {
         blurDataURL: blurUrlItem ? blurUrlItem.base64 : null,
         ...me,
       },
-      techs,
     },
     workFor: { data: RCompany, total: dbConfig.companyTotal },
     testis: { testis: RTestis, addUrl: testimonialAddUrl },
     recentApps: {
       data: RApps,
       total: dbConfig.appTotal,
+    },
+    recentTechs: {
+      data: RTechs,
+      total: dbConfig.techsTotal,
     },
     recentProjects: {
       data: RPros,

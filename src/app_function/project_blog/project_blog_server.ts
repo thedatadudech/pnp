@@ -37,6 +37,9 @@ export async function projectBlogGetStaticPaths(type: Card) {
     case "company":
       total = dbConfig.companyTotal;
       break;
+    case "techs":
+      total = dbConfig.techsTotal;
+      break;
   }
 
   const paths: {
@@ -59,7 +62,7 @@ export async function projectBlogGetStaticPaths(type: Card) {
 }
 
 export async function projectBlogGetStaticProps(
-  props: ProjectBlogGetStaticServer
+  props: ProjectBlogGetStaticServer,
 ) {
   let pageNo = 1;
   if (

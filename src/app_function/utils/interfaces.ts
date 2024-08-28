@@ -14,6 +14,15 @@ export interface WorkForProps {
   data: Company[];
   total: number;
 }
+export type Techs = {
+  title: string;
+  imgUrl: string;
+  imgBlurData?: string;
+  category: string; // programming language, library,
+  fileName: string;
+  date: number;
+  years: number; //years of experience
+};
 
 export type Blog = {
   title: string;
@@ -54,8 +63,8 @@ export type App = {
   imgsBlurData: ImgBlurData;
 };
 
-export type Card = "blogs" | "projects" | "apps" | "company";
-export type CardData = Project[] | Blog[] | App[] | Company[];
-export type CardItem = Project | Blog | App | Company;
+export type Card = "blogs" | "projects" | "apps" | "company" | "techs";
+export type CardData = Project[] | Blog[] | App[] | Company[] | Techs[];
+export type CardItem = Project | Blog | App | Company | Techs;
 export type ImgBlurItem = { base64: string; height: number; width: number };
 export type ImgBlurData = { [url: string]: ImgBlurItem };

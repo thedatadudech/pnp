@@ -14,7 +14,7 @@ export default function Privacy(props: PrivacyProps) {
 
   return (
     <>
-      <SEO description={title} title={title} />
+      <SEO title={title} />
       <section className="px-2 pt-2">
         <MDRender data={props.data} />
       </section>

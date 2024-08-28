@@ -2,29 +2,20 @@ import keyword_extractor from "keyword-extractor";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { type CardItem } from "~/app_function/utils/interfaces";
-import { sliceText } from "~/app_function/utils/utils";
 import { env } from "../env.mjs";
 
 interface SEOProps {
   title: string;
-  description: string;
   imgUrl?: string;
   ogType?: string;
   itemView?: CardItem;
 }
 
-function SEO({
-  imgUrl: img,
-  title,
-  description: rawDesc,
-  itemView,
-  ogType = "website",
-}: SEOProps) {
+function SEO({ imgUrl: img, title, itemView, ogType = "website" }: SEOProps) {
   const router = useRouter();
-  const description = sliceText(rawDesc);
   const pageUrl = `${env.NEXT_PUBLIC_BASE_URL}${router.asPath}`;
   const keywords = keyword_extractor
-    .extract((itemView ? itemView.fileName : "") + " " + rawDesc, {
+    .extract((itemView ? itemView.fileName : "") + " ", {
       language: "english",
       remove_digits: true,
       return_changed_case: true,
@@ -34,7 +25,6 @@ function SEO({
   return (
     <NextSeo
       title={title}
-      description={description}
       canonical={pageUrl}
       additionalLinkTags={[
         {
@@ -45,12 +35,10 @@ function SEO({
       openGraph={{
         url: pageUrl,
         title,
-        description,
         images: img
           ? [
               {
                 url: img,
-                alt: `${description}`,
               },
             ]
           : undefined,

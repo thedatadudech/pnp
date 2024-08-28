@@ -14,16 +14,18 @@ import type {
   Card as CardType,
   App,
   Company,
+  Techs,
   ImgBlurData,
 } from "~/app_function/utils/interfaces";
 import LayoutCardApp from "~/components/apps/layout_card";
+import LayoutCardTechs from "~/components/techs/layout_card";
 import { DEFAULT_IS_LIGHT, useThemeStore } from "~/app_state/theme_mode";
 import { useState, useEffect } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import {
   getDataUrl,
   getPrefixRepo,
-  toTitleCase,
+  // toTitleCase,
 } from "~/app_function/utils/utils";
 import LayoutCardCompany from "~/components/company/layout_card";
 import { env } from "../../../env.mjs";
@@ -76,7 +78,7 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
   const [isLight, setIsLight] = useState(DEFAULT_IS_LIGHT);
 
   let title: string;
-  let desc: string;
+  // let desc: string;
   let shareTxt: string;
   let project: Project | undefined = undefined;
 
@@ -159,32 +161,37 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
     case "projects":
       const itemView = props.itemView as Project;
       title = `${itemView.whatText}`;
-      desc = `${itemView.result} | ${toTitleCase(props.type)} | ${
-        itemView.company.name
-      } | ${itemView.app.name}`;
+      // desc = `${itemView.result} | ${toTitleCase(props.type)} | ${
+      //   itemView.company.name
+      // } | ${itemView.app.name}`;
       shareTxt = `${itemView.whatText} ${itemView.result}`;
       project = itemView;
       break;
     case "blogs":
       const b = props.itemView as Blog;
       title = b.title;
-      desc = `${b.desc} | ${toTitleCase(props.type)} | ${
-        env.NEXT_PUBLIC_PERSON_NAME
-      }`;
+      // desc = `${b.desc} | ${toTitleCase(props.type)} | ${
+      //   env.NEXT_PUBLIC_PERSON_NAME
+      // }`;
       shareTxt = b.desc;
       break;
     case "apps":
       const a = props.itemView as App;
       title = a.title;
-      desc = `${a.category} | ${toTitleCase(props.type)} | ${a.platforms
-        .map((x) => x.name)
-        .join(" | ")} | ${env.NEXT_PUBLIC_PERSON_NAME}`;
+      // desc = `${a.category} | ${toTitleCase(props.type)} | ${a.platforms
+      //   .map((x) => x.name)
+      //   .join(" | ")} | ${env.NEXT_PUBLIC_PERSON_NAME}`;
       shareTxt = a.title;
       break;
     case "company":
       const c = props.itemView as Company;
       title = c.title;
-      desc = `${title} | ${toTitleCase(props.type)}`;
+      // desc = `${title} | ${toTitleCase(props.type)}`;
+      shareTxt = title;
+      break;
+    case "techs":
+      const t = props.itemView as Techs;
+      title = t.title;
       shareTxt = title;
       break;
   }
@@ -311,13 +318,14 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
   return (
     <>
       <SEO
-        description={desc}
         title={title}
         imgUrl={props.itemView.imgUrl}
         ogType="article"
         itemView={props.itemView}
       />
-      {(props.type === "apps" || props.type === "company") && <Spotlight />}
+      {(props.type === "apps" ||
+        props.type === "company" ||
+        props.type == "techs") && <Spotlight />}
       <div className="px-2">
         <div className="mx-auto">
           <div className="flex items-start justify-around gap-4">
@@ -417,9 +425,11 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
                         Previous{" "}
                       </Link>
                     </div>
-                    {props.type !== "apps" && props.type !== "company" && (
-                      <LayoutCard data={props.previous} />
-                    )}
+                    {props.type !== "apps" &&
+                      props.type !== "company" &&
+                      props.type !== "techs" && (
+                        <LayoutCard data={props.previous} />
+                      )}
                   </div>
                 )}
                 {props.next && (
@@ -432,15 +442,17 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
                         Next <ChevronRightIcon className="h-6 w-6" />
                       </Link>
                     </div>
-                    {props.type !== "apps" && props.type !== "company" && (
-                      <LayoutCard data={props.next} />
-                    )}
+                    {props.type !== "apps" &&
+                      props.type !== "company" &&
+                      props.type != "techs" && <LayoutCard data={props.next} />}
                   </div>
                 )}
               </div>
             </div>
           )}
-          {(props.type === "apps" || props.type === "company") &&
+          {(props.type === "apps" ||
+            props.type === "company" ||
+            props.type === "techs") &&
             props.more4 && (
               <div
                 key={`${props.itemView.fileName}`}
@@ -450,6 +462,9 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
                   if (props.type === "apps") {
                     const m = x as App;
                     return <LayoutCardApp {...m} key={x.date} />;
+                  } else if (props.type === "techs") {
+                    const m = x as Techs;
+                    return <LayoutCardTechs {...m} key={x.imgUrl} />;
                   } else {
                     const m = x as Company;
                     return <LayoutCardCompany {...m} key={x.date} />;
