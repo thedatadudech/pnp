@@ -13,6 +13,8 @@ export interface ProjectBlogGetStaticServer {
 export function getPageSize(type: Card) {
   switch (type) {
     case "apps":
+    case "techs":
+    case "ainml":
     case "company":
       return PAGE_SIZE_APP;
     default:
@@ -39,6 +41,9 @@ export async function projectBlogGetStaticPaths(type: Card) {
       break;
     case "techs":
       total = dbConfig.techsTotal;
+      break;
+    case "ainml":
+      total = dbConfig.ainmlTotal;
       break;
   }
 

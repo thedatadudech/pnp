@@ -9,6 +9,7 @@ import {
   getProjects,
   getTesti,
   getTechs,
+  getAinml,
   getBlurData,
 } from "../utils/utils-server";
 import { type MeSectionProps } from "~/components/me_section/me_section";
@@ -21,10 +22,12 @@ import {
   type Blog,
   type Project,
   type Techs,
+  type Ainml,
   type WorkForProps,
 } from "../utils/interfaces";
 import { type AppsProps } from "~/components/apps/recent_apps";
 import { type TechsProps } from "~/components/techs/recent_techs";
+import { type AinmlProps } from "~/components/ainml/recent_template";
 import { getDataUrl } from "../utils/utils";
 import { env } from "../../env.mjs";
 import { type Testimonial } from "~/components/work_for_t/testi_card";
@@ -44,6 +47,7 @@ export interface HomeProps {
   testis: TestimonialsProps;
   recentApps: AppsProps;
   recentTechs: TechsProps;
+  recentAinml: AinmlProps;
   recentProjects: ProjectsProps;
   recentBlogs: RecentBlogsProps;
 }
@@ -63,6 +67,8 @@ export async function HomeServer() {
 
   const allTechsRaw = await getTechs();
 
+  const allAinmlRaw = await getAinml();
+
   const allAppsRaw = await getApps();
 
   const allBlogsRaw = await getBlogs();
@@ -73,6 +79,7 @@ export async function HomeServer() {
   const RApps: App[] = await addBlur(allAppsRaw.apps, 6);
   const RBlogs: Blog[] = await addBlur(allBlogsRaw.blogs);
   const RTechs: Techs[] = await addBlur(allTechsRaw.techs);
+  const RAinml: Ainml[] = await addBlur(allAinmlRaw.ainml);
   const RCompany: Company[] = await addBlur(allCompanyRaw.company);
   const RTestis: Testimonial[] = await addBlur(
     testis.testis,
@@ -100,6 +107,10 @@ export async function HomeServer() {
     recentTechs: {
       data: RTechs,
       total: dbConfig.techsTotal,
+    },
+    recentAinml: {
+      data: RAinml,
+      total: dbConfig.ainmlTotal,
     },
     recentProjects: {
       data: RPros,

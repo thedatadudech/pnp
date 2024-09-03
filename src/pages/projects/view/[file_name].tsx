@@ -15,10 +15,12 @@ import type {
   App,
   Company,
   Techs,
+  Ainml,
   ImgBlurData,
 } from "~/app_function/utils/interfaces";
 import LayoutCardApp from "~/components/apps/layout_card";
 import LayoutCardTechs from "~/components/techs/layout_card";
+import LayoutCardAinml from "~/components/ainml/layout_card";
 import { DEFAULT_IS_LIGHT, useThemeStore } from "~/app_state/theme_mode";
 import { useState, useEffect } from "react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
@@ -181,17 +183,22 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
       // desc = `${a.category} | ${toTitleCase(props.type)} | ${a.platforms
       //   .map((x) => x.name)
       //   .join(" | ")} | ${env.NEXT_PUBLIC_PERSON_NAME}`;
-      shareTxt = a.title;
+      shareTxt = title;
       break;
     case "company":
       const c = props.itemView as Company;
       title = c.title;
       // desc = `${title} | ${toTitleCase(props.type)}`;
-      shareTxt = title;
+      shareTxt = c.title;
       break;
     case "techs":
       const t = props.itemView as Techs;
       title = t.title;
+      shareTxt = title;
+      break;
+    case "ainml":
+      const ai = props.itemView as Ainml;
+      title = ai.title;
       shareTxt = title;
       break;
   }
@@ -325,7 +332,8 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
       />
       {(props.type === "apps" ||
         props.type === "company" ||
-        props.type == "techs") && <Spotlight />}
+        props.type == "techs" ||
+        props.type === "ainml") && <Spotlight />}
       <div className="px-2">
         <div className="mx-auto">
           <div className="flex items-start justify-around gap-4">
@@ -427,7 +435,8 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
                     </div>
                     {props.type !== "apps" &&
                       props.type !== "company" &&
-                      props.type !== "techs" && (
+                      props.type !== "techs" &&
+                      props.type !== "ainml" && (
                         <LayoutCard data={props.previous} />
                       )}
                   </div>
@@ -444,7 +453,10 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
                     </div>
                     {props.type !== "apps" &&
                       props.type !== "company" &&
-                      props.type != "techs" && <LayoutCard data={props.next} />}
+                      props.type !== "techs" &&
+                      props.type !== "ainml" && (
+                        <LayoutCard data={props.next} />
+                      )}
                   </div>
                 )}
               </div>
@@ -452,7 +464,8 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
           )}
           {(props.type === "apps" ||
             props.type === "company" ||
-            props.type === "techs") &&
+            props.type === "techs" ||
+            props.type === "ainml") &&
             props.more4 && (
               <div
                 key={`${props.itemView.fileName}`}
@@ -465,6 +478,9 @@ export default function ProjectBlogView(props: ProjectBlogViewProps) {
                   } else if (props.type === "techs") {
                     const m = x as Techs;
                     return <LayoutCardTechs {...m} key={x.imgUrl} />;
+                  } else if (props.type === "ainml") {
+                    const m = x as Ainml;
+                    return <LayoutCardAinml {...m} key={x.imgUrl} />;
                   } else {
                     const m = x as Company;
                     return <LayoutCardCompany {...m} key={x.date} />;

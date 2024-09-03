@@ -8,6 +8,7 @@ import type {
   Company,
   Project,
   Techs,
+  Ainml,
 } from "./interfaces";
 import { getPlaiceholder } from "plaiceholder";
 import { parse } from "path";
@@ -21,6 +22,7 @@ export interface DBConfigs {
   appTotal: number;
   companyTotal: number;
   techsTotal: number;
+  ainmlTotal: number;
 }
 
 export interface RawProjectsProps {
@@ -32,6 +34,9 @@ export interface RawAppsProps {
 }
 export interface RawTechsProps {
   techs: Techs[];
+}
+export interface RawAinmlProps {
+  ainml: Ainml[];
 }
 
 export interface RawBlogsProps {
@@ -75,6 +80,14 @@ export async function getTechs(): Promise<RawTechsProps> {
     return JSON.parse(dataTechs) as RawTechsProps;
   } catch (e) {
     return { techs: [] };
+  }
+}
+export async function getAinml(): Promise<RawAinmlProps> {
+  try {
+    const dataAinml = (await getData("db/ainml.json")).toString();
+    return JSON.parse(dataAinml) as RawAinmlProps;
+  } catch (e) {
+    return { ainml: [] };
   }
 }
 
@@ -232,6 +245,10 @@ export async function getCard(type: Card) {
     case "techs":
       const techs = (await getTechs()).techs;
       allData = await addBlur(techs, techs.length);
+      break;
+    case "ainml":
+      const ainml = (await getAinml()).ainml;
+      allData = await addBlur(ainml, ainml.length);
       break;
   }
   return allData;

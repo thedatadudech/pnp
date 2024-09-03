@@ -9,9 +9,14 @@ export interface ILinksProps {
 export default function Links(props: ILinksProps) {
   return (
     <div className={props.className}>
-      <span className="tooltip tooltip-bottom" data-tip="View all">
+      {/* <span className="tooltip tooltip-bottom" data-tip="View all">
         <Link href="/apps" className="link-hover link">
           Apps
+        </Link>
+      </span> */}
+      <span className="tooltip tooltip-bottom" data-tip="View">
+        <Link href="/techs" className="link-hover link">
+          Techs
         </Link>
       </span>
       <span className="tooltip tooltip-bottom" data-tip="View all">
@@ -19,21 +24,16 @@ export default function Links(props: ILinksProps) {
           Projects
         </Link>
       </span>
-      <span className="tooltip tooltip-bottom" data-tip="View all">
+      {/* <span className="tooltip tooltip-bottom" data-tip="View all">
         <Link href="/blogs" className="link-hover link">
           Blogs
         </Link>
-      </span>
-      <span className="tooltip tooltip-bottom" data-tip="View">
+      </span> */}
+      {/* <span className="tooltip tooltip-bottom" data-tip="View">
         <Link href="/resume" className="link-hover link">
           Resume
         </Link>
-      </span>
-      <span className="tooltip tooltip-bottom" data-tip="View">
-        <Link href="/techs" className="link-hover link">
-          Techs
-        </Link>
-      </span>
+      </span> */}
     </div>
   );
 }

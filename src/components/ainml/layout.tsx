@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
-import { type Techs } from "~/app_function/utils/interfaces";
+import { type Ainml } from "~/app_function/utils/interfaces";
 
 const LayoutCard = dynamic(() => import("./layout_card"));
 
 interface Layout {
   searchObject?: boolean;
-  data: Techs[];
+  data: Ainml[];
 }
 
 export default function Layout(props: Layout) {

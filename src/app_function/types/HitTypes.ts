@@ -4,6 +4,7 @@ import {
   type App,
   type Blog,
   type Techs,
+  type Ainml,
   type Company,
 } from "../utils/interfaces";
 import { type Testimonial } from "~/components/work_for_t/testi_card";
@@ -15,6 +16,7 @@ type WithAutocompleteAnalytics<THit> = THit & {
 
 export type AppHit = WithAutocompleteAnalytics<Hit<App>>;
 export type TechsHit = WithAutocompleteAnalytics<Hit<Techs>>;
+export type AinmlHit = WithAutocompleteAnalytics<Hit<Ainml>>;
 export type BlogHit = WithAutocompleteAnalytics<Hit<Blog>>;
 export type ProjectHit = WithAutocompleteAnalytics<Hit<Project>>;
 export type CompanyHit = WithAutocompleteAnalytics<Hit<Company>>;
@@ -25,4 +27,6 @@ export type AllHit =
   | AppHit
   | ProjectHit
   | CompanyHit
+  | TechsHit
+  | AinmlHit
   | TestimonialHit;

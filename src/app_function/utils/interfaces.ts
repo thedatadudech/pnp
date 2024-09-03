@@ -24,6 +24,16 @@ export type Techs = {
   years: number; //years of experience
 };
 
+export type Ainml = {
+  title: string;
+  imgUrl: string;
+  imgBlurData?: string;
+  category: string; // programming language, library,
+  fileName: string;
+  date: number;
+  years: number; //years of experience
+};
+
 export type Blog = {
   title: string;
   imgUrl: string;
@@ -63,8 +73,20 @@ export type App = {
   imgsBlurData: ImgBlurData;
 };
 
-export type Card = "blogs" | "projects" | "apps" | "company" | "techs";
-export type CardData = Project[] | Blog[] | App[] | Company[] | Techs[];
-export type CardItem = Project | Blog | App | Company | Techs;
+export type Card =
+  | "blogs"
+  | "projects"
+  | "apps"
+  | "company"
+  | "techs"
+  | "ainml";
+export type CardData =
+  | Project[]
+  | Blog[]
+  | App[]
+  | Company[]
+  | Techs[]
+  | Ainml[];
+export type CardItem = Project | Blog | App | Company | Techs | Ainml;
 export type ImgBlurItem = { base64: string; height: number; width: number };
 export type ImgBlurData = { [url: string]: ImgBlurItem };

@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { env } from "../env.mjs";
 
 const SEO = dynamic(() => import("~/components/seo"));
-const RecentApps = dynamic(() => import("~/components/apps/recent_apps"));
+//const RecentApps = dynamic(() => import("~/components/apps/recent_apps"));
 const RecentTechs = dynamic(() => import("~/components/techs/recent_techs"));
+// const RecentAinml = dynamic(() => import("~/components/ainml/recent_template"));
 const RecentProjects = dynamic(
   () => import("~/components/projects/recent_projects"),
 );
 const Hero = dynamic(() => import("~/components/hero/hero"));
-const RecentBlogs = dynamic(() => import("~/components/blogs/recent_blogs"));
+//const RecentBlogs = dynamic(() => import("~/components/blogs/recent_blogs"));
 const ContactSection = dynamic(
   () => import("~/components/contact/contact_section"),
 );
@@ -47,15 +48,18 @@ const Home = (props: HomeProps) => {
         {props.recentTechs.data.length > 0 && (
           <RecentTechs {...props.recentTechs} />
         )}
-        {props.recentApps.data.length > 0 && (
+        {/* {props.recentAinml.data.length > 0 && (
+          <RecentAinml {...props.recentAinml} />
+        )} */}
+        {/* {props.recentApps.data.length > 0 && (
           <RecentApps {...props.recentApps} />
-        )}
+        )} */}
         {props.recentProjects.data.length > 0 && (
           <RecentProjects {...props.recentProjects} />
         )}
-        {props.recentBlogs.data.length > 0 && (
+        {/* {props.recentBlogs.data.length > 0 && (
           <RecentBlogs {...props.recentBlogs} />
-        )}
+        )} */}
         <ContactSection />
 
         <div className="divider mx-auto max-w-6xl px-2" />

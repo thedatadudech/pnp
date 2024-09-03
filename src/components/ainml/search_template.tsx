@@ -1,14 +1,14 @@
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import dynamic from "next/dynamic";
-import { type TechsHit } from "~/app_function/types/HitTypes";
+import { type AinmlHit } from "~/app_function/types/HitTypes";
 
-const LayoutCardTechs = dynamic(() => import("./layout_card"));
+const LayoutCardAinml = dynamic(() => import("./layout_card"));
 
-export interface SearchTechsProps {
-  data: TechsHit[];
+export interface SearchAinmlProps {
+  data: AinmlHit[];
 }
 
-export default function SearchTechs(props: SearchTechsProps) {
+export default function SearchAinml(props: SearchAinmlProps) {
   if (props.data.length <= 0) return <></>;
   return (
     <div className="mx-4 h-fit max-w-6xl ">
@@ -19,7 +19,7 @@ export default function SearchTechs(props: SearchTechsProps) {
       </div>
       <div className="mx-auto w-full justify-center gap-2 space-y-2 py-2 sm:grid sm:grid-cols-3 sm:space-y-0 md:mx-2 md:grid-cols-5 md:gap-4">
         {props.data.map((x) => (
-          <LayoutCardTechs {...x} key={x.objectID} />
+          <LayoutCardAinml {...x} key={x.objectID} />
         ))}
       </div>
     </div>

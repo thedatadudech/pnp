@@ -48,7 +48,9 @@ export default function AllDataShowPage(props: AllDataProps) {
     <>
       <SEO title={title} />
       <div className="container mx-auto">
-        <p className="text-center text-3xl uppercase">{pageName}</p>
+        <p className="text-center text-3xl uppercase">
+          {pageName === "Ainml" ? "AI and Machinelearning" : pageName}
+        </p>
         <div className="mx-auto w-full max-w-6xl">
           <div className="m-2">
             <ProjectBlogLayout

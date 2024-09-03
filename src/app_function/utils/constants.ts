@@ -9,5 +9,6 @@ export const ALGOLIA_INDEX_PROJECTS = "projects";
 export const ALGOLIA_INDEX_APPS = "apps";
 export const ALGOLIA_INDEX_BLOGS = "blogs";
 export const ALGOLIA_INDEX_COMPANY = "company";
+export const ALGOLIA_INDEX_TECHS = "techs";
 export const ALGOLIA_INDEX_TESTIMONIALS = "testimonials";
 export const MAIN_ENV_PATH = ".env.local";
